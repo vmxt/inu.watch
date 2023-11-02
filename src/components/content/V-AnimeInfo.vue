@@ -6,7 +6,7 @@
         <div class="overflow-hidden col-span-2">
 
           <div class="relative w-full">
-            <video ref="videoElement" id="video-element" class="video-js w-full h-full md:h-140 z-10 py-1 px-2" controls
+            <video ref="videoElement" id="video-element" class="video-js w-full h-60 md:h-140 z-10 py-1 px-2" controls
               preload="auto" width="800" height="500" :poster="anime.cover" data-setup="{}" />
           </div>
 
