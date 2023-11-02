@@ -1,0 +1,43 @@
+@import './base.css';
+
+#app {
+  box-sizing: border-box;
+  font-weight: normal;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.card {
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+}
+
+.card:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card img {
+  transition: transform 0.3s;
+}
+
+.card:hover img {
+  transform: scale(1.03);
+}
+
+.card h3 {
+  margin-top: 0;
+}

@@ -1,0 +1,41 @@
+{
+  "name": "inu.watch",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
+    "format": "prettier --write src/"
+  },
+  "dependencies": {
+    "@headlessui/vue": "^1.7.16",
+    "@unocss/reset": "^0.56.5",
+    "artplayer": "^5.0.9",
+    "axios": "^1.5.1",
+    "pinia": "^2.1.6",
+    "swiper": "^10.3.1",
+    "unplugin-vue-components": "^0.25.2",
+    "video.js": "^8.6.1",
+    "vue": "^3.3.4",
+    "vue-multiselect": "^2.1.8",
+    "vue-router": "^4.2.4"
+  },
+  "devDependencies": {
+    "@iconify-json/carbon": "^1.1.21",
+    "@iconify-json/icon-park-solid": "^1.1.10",
+    "@iconify-json/streamline-emojis": "^1.1.4",
+    "@iconify-json/svg-spinners": "^1.1.2",
+    "@rushstack/eslint-patch": "^1.3.3",
+    "@vitejs/plugin-vue": "^4.3.4",
+    "@vue/eslint-config-prettier": "^8.0.0",
+    "animated-unocss": "^0.0.6",
+    "eslint": "^8.49.0",
+    "eslint-plugin-vue": "^9.17.0",
+    "lodash": "^4.17.21",
+    "prettier": "^3.0.3",
+    "unocss": "^0.56.5",
+    "vite": "^4.4.9"
+  }
+}
