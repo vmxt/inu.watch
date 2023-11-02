@@ -71,7 +71,7 @@ const router = createRouter({
       meta: {
         title: 'Inu - Genre'
       }
-    },
+    }
   ]
 })
 

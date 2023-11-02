@@ -1,5 +1,5 @@
 <template>
-    <VNavbar />
-    <VAnimeTypes />
-    <VFooter />
+  <VNavbar />
+  <VAnimeTypes />
+  <VFooter />
 </template>

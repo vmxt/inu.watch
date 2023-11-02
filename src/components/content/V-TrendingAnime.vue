@@ -5,11 +5,22 @@
         <h1 class="text-xl py-5">Trending Anime</h1>
       </div>
 
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 gap-2 animated"
-        :class="{ 'animated-fade-in': !loading }">
-        <RouterLink :to="'/anime/' + anime.id" v-for="anime in animeList" :key="anime.id"
-          class="card border border-dark-50 rounded-lg">
-          <img :src="anime.image" :alt="anime.title" draggable="false" class="w-full h-60 md:h-80 object-cover" />
+      <div
+        class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 gap-2 animated"
+        :class="{ 'animated-fade-in': !loading }"
+      >
+        <RouterLink
+          :to="'/anime/' + anime.id"
+          v-for="anime in animeList"
+          :key="anime.id"
+          class="card border border-dark-50 rounded-lg"
+        >
+          <img
+            :src="anime.image"
+            :alt="anime.title"
+            draggable="false"
+            class="w-full h-60 md:h-80 object-cover"
+          />
           <div class="p-4">
             <h3 class="font-semibold truncate">
               {{ anime.title?.english || anime.title?.userPreferred }}
@@ -23,12 +34,34 @@
         </RouterLink>
       </div>
       <div class="flex justify-center py-5">
-        <button @click="previousPage" :disabled="page === 1"
-          :class="{ 'btn': true, 'border': true, 'border-dark-300': true, 'bg-dark-50 hover:bg-dark-50': page === 1, 'mr-2': true, 'disabled:opacity-50': page === 1 }">Previous
-          Page</button>
-        <button @click="nextPage" :disabled="page === totalPages"
-          :class="{ 'btn': true, 'border': true, 'border-dark-300': true, 'bg-dark-50 hover:bg-dark-50': page === totalPages, 'ml-2': true, 'disabled:opacity-50': page === totalPages }">Next
-          Page</button>
+        <button
+          @click="previousPage"
+          :disabled="page === 1"
+          :class="{
+            btn: true,
+            border: true,
+            'border-dark-300': true,
+            'bg-dark-50 hover:bg-dark-50': page === 1,
+            'mr-2': true,
+            'disabled:opacity-50': page === 1
+          }"
+        >
+          Previous Page
+        </button>
+        <button
+          @click="nextPage"
+          :disabled="page === totalPages"
+          :class="{
+            btn: true,
+            border: true,
+            'border-dark-300': true,
+            'bg-dark-50 hover:bg-dark-50': page === totalPages,
+            'ml-2': true,
+            'disabled:opacity-50': page === totalPages
+          }"
+        >
+          Next Page
+        </button>
       </div>
     </template>
     <template v-else>
@@ -46,7 +79,7 @@ export default {
       animeList: [],
       isLoading: false,
       page: 1,
-      totalPages: null,
+      totalPages: null
     }
   },
   async created() {
@@ -67,31 +100,31 @@ export default {
   },
   methods: {
     async fetchAnimeList() {
-      const perPage = 50;
+      const perPage = 50
 
       try {
-        this.isLoading = true;
+        this.isLoading = true
         const { data } = await axios.get(`https://animeden-api.vercel.app/meta/anilist/trending`, {
           params: { page: this.page, perPage }
-        });
-        this.animeList = data.results;
-        this.totalPages = data.pageInfo.lastPage;
+        })
+        this.animeList = data.results
+        this.totalPages = data.pageInfo.lastPage
       } catch (err) {
-        console.error(err.message);
+        console.error(err.message)
       } finally {
-        this.isLoading = false;
+        this.isLoading = false
       }
     },
     nextPage() {
-      this.page++;
-      this.fetchAnimeList();
+      this.page++
+      this.fetchAnimeList()
     },
     previousPage() {
       if (this.page > 1) {
-        this.page--;
-        this.fetchAnimeList();
+        this.page--
+        this.fetchAnimeList()
       }
-    },
+    }
   }
 }
 </script>

@@ -3,8 +3,10 @@
     <div class="container px-6 py-3 mx-auto md:flex">
       <div class="flex items-center justify-between">
         <RouterLink to="/home">
-          <div i-icon-park-solid-dog
-            class="self-center text-5xl font-semibold whitespace-nowrap text-orange-100 hover:text-orange-200 dark:text-white" />
+          <div
+            i-icon-park-solid-dog
+            class="self-center text-5xl font-semibold whitespace-nowrap text-orange-100 hover:text-orange-200 dark:text-white"
+          />
         </RouterLink>
 
         <div class="flex md:hidden">
@@ -15,38 +17,57 @@
         </div>
       </div>
 
-      <div :class="[isOpen ? 'translate-x-0 opacity-100 ' : 'opacity-0 -translate-x-full']"
-        class="absolute inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 ease-in-out bg-dark-800 dark:bg-gray-800 md:mt-0 md:p-0 md:top-0 md:relative md:opacity-100 md:translate-x-0 md:flex md:items-center md:justify-between">
+      <div
+        :class="[isOpen ? 'translate-x-0 opacity-100 ' : 'opacity-0 -translate-x-full']"
+        class="absolute inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 ease-in-out bg-dark-800 dark:bg-gray-800 md:mt-0 md:p-0 md:top-0 md:relative md:opacity-100 md:translate-x-0 md:flex md:items-center md:justify-between"
+      >
         <div class="flex flex-col px-2 -mx-4 md:flex-row md:mx-10 md:py-0">
           <div class="relative" @click.stop="toggleGenreDropdown">
             <button
-              class="px-2.5 uppercase py-2 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-dark-200 hover:text-orange-200 dark:hover:bg-gray-200 md:mx-2">
+              class="px-2.5 uppercase py-2 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-dark-200 hover:text-orange-200 dark:hover:bg-gray-200 md:mx-2"
+            >
               Genres
             </button>
 
-            <div v-if="isOpenGenres"
-              class="absolute w-full md:w-100 z-10 mt-2 bg-dark border-dark-300 rounded-lg shadow-lg p-2 grid grid-cols-3 gap-2">
-              <RouterLink v-for="genre in genres" :key="genre.id" :to="'/genre/' + genre.name"
-                class="px-3 py-2 hover:bg-dark-200 hover:text-orange-200 cursor-pointer rounded-lg">
+            <div
+              v-if="isOpenGenres"
+              class="absolute w-full md:w-100 z-10 mt-2 bg-dark border-dark-300 rounded-lg shadow-lg p-2 grid grid-cols-3 gap-2"
+            >
+              <RouterLink
+                v-for="genre in genres"
+                :key="genre.id"
+                :to="'/genre/' + genre.name"
+                class="px-3 py-2 hover:bg-dark-200 hover:text-orange-200 cursor-pointer rounded-lg"
+              >
                 {{ genre.name }}
               </RouterLink>
             </div>
           </div>
           <div class="relative" @click.stop="toggleTypeDropdown">
             <button
-              class="px-2.5 uppercase py-2 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-dark-200 hover:text-orange-200 dark:hover:bg-gray-200 md:mx-2">
+              class="px-2.5 uppercase py-2 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-dark-200 hover:text-orange-200 dark:hover:bg-gray-200 md:mx-2"
+            >
               Types
             </button>
-            <div v-if="isOpenTypes"
-              class="absolute w-full md:w-30 z-10 mt-2 bg-dark border-dark-300 rounded-lg shadow-lg p-2">
-              <RouterLink v-for="type in types" :key="type.param" :to="'/type/' + type.param"
-                class="block px-3 py-2 hover:bg-dark-200 hover:text-orange-200 cursor-pointer rounded-lg">
+            <div
+              v-if="isOpenTypes"
+              class="absolute w-full md:w-30 z-10 mt-2 bg-dark border-dark-300 rounded-lg shadow-lg p-2"
+            >
+              <RouterLink
+                v-for="type in types"
+                :key="type.param"
+                :to="'/type/' + type.param"
+                class="block px-3 py-2 hover:bg-dark-200 hover:text-orange-200 cursor-pointer rounded-lg"
+              >
                 {{ type.label }}
               </RouterLink>
             </div>
           </div>
-          <a href="#"
-            class="px-2.5 uppercase py-2 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-dark-200 hover:text-orange-200 dark:hover:bg-gray-200 md:mx-2">Random</a>
+          <a
+            href="#"
+            class="px-2.5 uppercase py-2 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-dark-200 hover:text-orange-200 dark:hover:bg-gray-200 md:mx-2"
+            >Random</a
+          >
         </div>
 
         <VSearchInput />
@@ -100,9 +121,9 @@ export default {
       }
     },
     toggleTypeDropdown() {
-      this.isOpenTypes = !this.isOpenTypes;
+      this.isOpenTypes = !this.isOpenTypes
       if (this.isOpenTypes && this.isOpenGenres) {
-        this.isOpenGenres = false;
+        this.isOpenGenres = false
       }
     },
     async handleSearch() {
@@ -116,23 +137,23 @@ export default {
       }
     },
     async handleTypeChange() {
-      const type = this.$route.params.type;
+      const type = this.$route.params.type
 
       try {
-        const response = await fetch(`https://animeden-api.vercel.app/meta/anilist/${type}`);
-        const data = await response.json();
-        this.searchResults = data.results;
+        const response = await fetch(`https://animeden-api.vercel.app/meta/anilist/${type}`)
+        const data = await response.json()
+        this.searchResults = data.results
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error('Error fetching data:', error)
       }
     }
   },
   watch: {
     $route(to) {
       if (to.path === '/anime') {
-        this.handleSearch();
+        this.handleSearch()
       } else if (to.path.startsWith('/type/')) {
-        this.handleTypeChange();
+        this.handleTypeChange()
       }
     }
   }

@@ -5,11 +5,22 @@
         <h1 class="text-xl py-5">Discover Anime {{ getTypeLabel(type) }}</h1>
       </div>
 
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 gap-2 animated"
-        :class="{ 'animated-fade-in': !loading }">
-        <RouterLink :to="'/anime/' + anime.id" v-for="anime in animeList" :key="anime.id"
-          class="card border border-dark-50">
-          <img :src="anime.image" :alt="anime.title" draggable="false" class="w-full h-60 md:h-80 object-cover" />
+      <div
+        class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 gap-2 animated"
+        :class="{ 'animated-fade-in': !loading }"
+      >
+        <RouterLink
+          :to="'/anime/' + anime.id"
+          v-for="anime in animeList"
+          :key="anime.id"
+          class="card border border-dark-50"
+        >
+          <img
+            :src="anime.image"
+            :alt="anime.title"
+            draggable="false"
+            class="w-full h-60 md:h-80 object-cover"
+          />
           <div class="p-4">
             <h3 class="font-semibold truncate">
               {{ anime.title?.english || anime.title?.userPreferred }}
@@ -23,12 +34,34 @@
         </RouterLink>
       </div>
       <div class="flex justify-center py-5">
-        <button @click="previousPage" :disabled="page === 1"
-          :class="{ 'btn': true, 'border': true, 'border-dark-300': true, 'bg-dark-50 hover:bg-dark-50': page === 1, 'mr-2': true, 'disabled:opacity-50': page === 1 }">Previous
-          Page</button>
-        <button @click="nextPage" :disabled="page === totalPages"
-          :class="{ 'btn': true, 'border': true, 'border-dark-300': true, 'bg-dark-50 hover:bg-dark-50': page === totalPages, 'ml-2': true, 'disabled:opacity-50': page === totalPages }">Next
-          Page</button>
+        <button
+          @click="previousPage"
+          :disabled="page === 1"
+          :class="{
+            btn: true,
+            border: true,
+            'border-dark-300': true,
+            'bg-dark-50 hover:bg-dark-50': page === 1,
+            'mr-2': true,
+            'disabled:opacity-50': page === 1
+          }"
+        >
+          Previous Page
+        </button>
+        <button
+          @click="nextPage"
+          :disabled="page === totalPages"
+          :class="{
+            btn: true,
+            border: true,
+            'border-dark-300': true,
+            'bg-dark-50 hover:bg-dark-50': page === totalPages,
+            'ml-2': true,
+            'disabled:opacity-50': page === totalPages
+          }"
+        >
+          Next Page
+        </button>
       </div>
     </template>
     <template v-else>
@@ -38,18 +71,18 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from 'axios'
 
 function getFormatParam(type) {
   const formatMap = {
-    'Movies': 'MOVIE',
+    Movies: 'MOVIE',
     'TV Series': 'TV',
-    'OVAs': 'OVA',
-    'ONAs': 'ONA',
-    'Specials': 'SPECIAL'
-  };
+    OVAs: 'OVA',
+    ONAs: 'ONA',
+    Specials: 'SPECIAL'
+  }
 
-  return formatMap[type] || type;
+  return formatMap[type] || type
 }
 
 export default {
@@ -59,64 +92,67 @@ export default {
       isLoading: false,
       page: 1,
       type: this.$route.params.type,
-      totalPages: null,
-    };
+      totalPages: null
+    }
   },
   methods: {
     getTypeLabel(type) {
       const typeMap = {
-        'TV': 'TV Series',
-        'TV_SHORT': 'TV Series',
-        'OVA': 'OVAs',
-        'ONA': 'ONAs',
-        'MOVIE': 'Movies',
-        'SPECIAL': 'Specials'
-      };
+        TV: 'TV Series',
+        TV_SHORT: 'TV Series',
+        OVA: 'OVAs',
+        ONA: 'ONAs',
+        MOVIE: 'Movies',
+        SPECIAL: 'Specials'
+      }
 
-      return typeMap[type] || type;
+      return typeMap[type] || type
     },
     async fetchAnimeList() {
-      const perPage = 50;
-      const status = 'FINISHED';
+      const perPage = 50
+      const status = 'FINISHED'
 
       try {
-        this.isLoading = true;
-        const { data } = await axios.get(`https://animeden-api.vercel.app/meta/anilist/advanced-search`, {
-          params: { page: this.page, perPage, status, format: getFormatParam(this.type) }
-        });
+        this.isLoading = true
+        const { data } = await axios.get(
+          `https://animeden-api.vercel.app/meta/anilist/advanced-search`,
+          {
+            params: { page: this.page, perPage, status, format: getFormatParam(this.type) }
+          }
+        )
 
         if (data.pageInfo) {
-          this.totalPages = data.pageInfo.lastPage;
+          this.totalPages = data.pageInfo.lastPage
         }
 
-        this.animeList = data.results;
+        this.animeList = data.results
       } catch (err) {
-        console.error(err.message);
+        console.error(err.message)
       } finally {
-        this.isLoading = false;
+        this.isLoading = false
       }
     },
     nextPage() {
-      this.page++;
-      this.fetchAnimeList();
+      this.page++
+      this.fetchAnimeList()
     },
     previousPage() {
       if (this.page > 1) {
-        this.page--;
-        this.fetchAnimeList();
+        this.page--
+        this.fetchAnimeList()
       }
-    },
+    }
   },
   async created() {
-    await this.fetchAnimeList();
+    await this.fetchAnimeList()
   },
   watch: {
     $route(to, from) {
       if (to.params.type !== from.params.type) {
-        this.type = to.params.type;
-        this.fetchAnimeList();
+        this.type = to.params.type
+        this.fetchAnimeList()
       }
     }
   }
-};
+}
 </script>

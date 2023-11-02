@@ -1,29 +1,52 @@
 <template>
   <div v-if="anime" class="max-w-screen-2xl mx-auto p-6">
     <template v-if="!isLoading">
-      <div class="mx-auto md:grid md:grid-cols-1 lg:grid-cols-3 md:gap-2 animated"
-        :class="{ 'animated-fade-in': !loading }">
+      <div
+        class="mx-auto md:grid md:grid-cols-1 lg:grid-cols-3 md:gap-2 animated"
+        :class="{ 'animated-fade-in': !loading }"
+      >
         <div class="overflow-hidden col-span-2">
-
           <div class="relative w-full">
-            <video ref="videoElement" id="video-element" class="video-js w-full h-60 md:h-140 z-10 py-1 px-2" controls
-              preload="auto" width="800" height="500" :poster="anime.cover" data-setup="{}" />
+            <video
+              ref="videoElement"
+              id="video-element"
+              class="video-js w-full h-60 md:h-140 z-10 py-1 px-2"
+              controls
+              preload="auto"
+              width="800"
+              height="500"
+              :poster="anime.cover"
+              data-setup="{}"
+            />
           </div>
 
           <div class="pt-5">
-            <div v-if="showNotification"
-              class="flex items-center p-3 mb-4 text-sm rounded-lg bg-dark-300 border border-dark-50 ml-2">
-              <div i-streamline-emojis-bell class="animated animated-swing animated-infinite px-3" />
+            <div
+              v-if="showNotification"
+              class="flex items-center p-3 mb-4 text-sm rounded-lg bg-dark-300 border border-dark-50 ml-2"
+            >
+              <div
+                i-streamline-emojis-bell
+                class="animated animated-swing animated-infinite px-3"
+              />
               If the server doesn't work please try other providers below.
               <div class="flex-grow"></div>
-              <div i-carbon-close-large @click="closeNotification" class="close-button cursor-pointer hover:text-white" />
+              <div
+                i-carbon-close-large
+                @click="closeNotification"
+                class="close-button cursor-pointer hover:text-white"
+              />
             </div>
           </div>
 
           <div class="flex items-center">
             <div class="px-2">
               Episodes:
-              <select v-model="selectedRange" @change="updateDisplayedEpisodes" class="btn px-2 py-1">
+              <select
+                v-model="selectedRange"
+                @change="updateDisplayedEpisodes"
+                class="btn px-2 py-1"
+              >
                 <option v-for="range in episodeRanges" :key="range" :value="range">
                   {{ range }}
                 </option>
@@ -40,15 +63,20 @@
           </div>
 
           <div class="grid grid-cols-6 md:grid-cols-9 lg:grid-cols-11 xl:grid-cols-12 gap-1 px-5">
-            <div v-for="(episode, index) in displayedEpisodes" :key="index" :class="[
-              'text-xs',
-              'text-center',
-              'bg-dark-200',
-              'p-2',
-              'hover:bg-dark-50',
-              'cursor-pointer',
-              { 'active-episode': episode === activeEpisode }
-            ]" @click="selectEpisode(episode)">
+            <div
+              v-for="(episode, index) in displayedEpisodes"
+              :key="index"
+              :class="[
+                'text-xs',
+                'text-center',
+                'bg-dark-200',
+                'p-2',
+                'hover:bg-dark-50',
+                'cursor-pointer',
+                { 'active-episode': episode === activeEpisode }
+              ]"
+              @click="selectEpisode(episode)"
+            >
               <p>{{ episode.number }}</p>
             </div>
           </div>
@@ -57,7 +85,11 @@
         <div class="container">
           <div class="flex-col md:flex-row lg:items-start">
             <div class="items-center justify-center mx-auto text-center">
-              <img :src="anime.image" draggable="false" class="w-75 pt-5 object-cover mb-4 md:mr-4 px-2" />
+              <img
+                :src="anime.image"
+                draggable="false"
+                class="w-75 pt-5 object-cover mb-4 md:mr-4 px-2"
+              />
             </div>
             <div class="w-full">
               <div class="flex items-center">
@@ -66,15 +98,24 @@
                 </h1>
               </div>
               <div class="description-container w-75">
-                <p class="text-sm" :class="{ truncate: !showFullDescription }"
-                  v-html="parseDescription(anime.description)"></p>
+                <p
+                  class="text-sm"
+                  :class="{ truncate: !showFullDescription }"
+                  v-html="parseDescription(anime.description)"
+                ></p>
               </div>
-              <span v-if="anime.description.length > 150 && !this.showFullDescription"
-                class="font-bold cursor-pointer hover:underline" @click="this.showFullDescription = true">
+              <span
+                v-if="anime.description.length > 150 && !this.showFullDescription"
+                class="font-bold cursor-pointer hover:underline"
+                @click="this.showFullDescription = true"
+              >
                 View more
               </span>
-              <span v-if="this.showFullDescription" class="font-bold cursor-pointer hover:underline"
-                @click="this.showFullDescription = false">
+              <span
+                v-if="this.showFullDescription"
+                class="font-bold cursor-pointer hover:underline"
+                @click="this.showFullDescription = false"
+              >
                 View less
               </span>
               <div class="items-center mt-3">
@@ -101,11 +142,19 @@
       <div v-if="anime && anime.recommendations" class="max-w-screen-2xl mx-auto p-6">
         <h2 class="text-2xl font-semibold mb-4">You may also like</h2>
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 gap-2">
-          <div v-for="recommendation in anime.recommendations.slice(0, 6)" :key="recommendation.id"
-            class="card border border-dark-50 rounded-lg" @click="goToRecommendation(recommendation.id)"
-            style="cursor: pointer">
-            <img :src="recommendation.image" :alt="recommendation.title.userPreferred" draggable="false"
-              class="w-full h-60 md:h-80 object-cover" />
+          <div
+            v-for="recommendation in anime.recommendations.slice(0, 6)"
+            :key="recommendation.id"
+            class="card border border-dark-50 rounded-lg"
+            @click="goToRecommendation(recommendation.id)"
+            style="cursor: pointer"
+          >
+            <img
+              :src="recommendation.image"
+              :alt="recommendation.title.userPreferred"
+              draggable="false"
+              class="w-full h-60 md:h-80 object-cover"
+            />
             <div class="p-4">
               <h3 class="font-semibold truncate">
                 {{ recommendation.title?.userPreferred || recommendation.title?.english }}
@@ -240,7 +289,7 @@ export default {
       }
     },
     closeNotification() {
-      this.showNotification = false;
+      this.showNotification = false
     },
     goToRecommendation(id) {
       this.$router.push(`/anime/${id}`)
