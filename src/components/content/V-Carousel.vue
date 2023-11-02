@@ -12,7 +12,7 @@
                 <h1 class="py-2 text-lg md:text-3xl lg:text-5xl font-bold truncate z-100">
                   {{ result.title?.english || result.title?.userPreferred }}
                 </h1>
-                <h1 class="text-sm md:text-2xl font-semibold mb-2 z-100">
+                <h1 class="text-sm md:text-2xl font-semibold mb-2 truncate z-100">
                   {{ result.genres.join(', ') }}
                 </h1>
                 <div class="flex items-center py-1 z-100">
