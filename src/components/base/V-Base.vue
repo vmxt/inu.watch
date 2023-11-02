@@ -1,7 +1,13 @@
 <template>
   <div class="flex justify-center items-left h-screen basepage">
     <div class="max-w-lg p-6 rounded-lg shadow-lg">
-      <h1 class="text-2xl font-bold mb-4 text-center">The simplest way to watch anime.</h1>
+      <div class="flex py-5 items-center justify-center">
+        <div
+          i-icon-park-solid-dog
+          class="self-center text-5xl font-semibold whitespace-nowrap text-orange-100 mr-5"
+        />
+        <p class="text-xl">inu-watch</p>
+      </div>
       <div class="mb-4">
         <VSearchInput />
       </div>
@@ -23,15 +29,6 @@
         </p>
       </div>
       <div class="mb-6">
-        <h2 class="text-xl font-bold">Familiar and Intuitive Interface:</h2>
-        <p>
-          Inu takes inspiration from the popular AnimixPlay platform, boasting a simple,
-          minimalistic interface that ensures a seamless browsing experience. The website's clean
-          design and intuitive layout allow users to easily navigate and discover their favorite
-          anime series effortlessly.
-        </p>
-      </div>
-      <div class="mb-6">
         <h2 class="text-xl font-bold">All-in-One Features:</h2>
         <p>
           Inu is equipped with all the essential features that anime lovers crave. From a vast anime
@@ -42,7 +39,7 @@
       </div>
       <div class="mb-6">
         <h2 class="text-xl font-bold">Hourly Content Updates:</h2>
-        <p>
+        <p class="pb-10">
           Inu ensures that anime fans never miss out on the latest episodes and series. The
           platform's dedication to providing up-to-date content is evident through its hourly
           updates. Discover new episodes, catch up on recent releases, and explore trending anime

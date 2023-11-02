@@ -86,6 +86,7 @@ export default {
     const page = 1
     const perPage = 50
     const year = new Date().getFullYear()
+    const sort = JSON.stringify(['SCORE_DESC'])
     const status = 'FINISHED'
 
     try {
@@ -93,7 +94,7 @@ export default {
       const { data } = await axios.get(
         `https://animeden-api.vercel.app/meta/anilist/advanced-search`,
         {
-          params: { page, perPage, year, status }
+          params: { page, perPage, year, sort, status }
         }
       )
       this.animeList = data.results

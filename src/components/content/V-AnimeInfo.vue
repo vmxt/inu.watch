@@ -2,22 +2,35 @@
   <div v-if="anime" class="max-w-screen-2xl mx-auto p-6">
     <template v-if="!isLoading">
       <div
-        class="mx-auto md:grid md:grid-cols-1 lg:grid-cols-3 md:gap-2 animated"
-        :class="{ 'animated-fade-in': !loading }"
+        class="mx-auto grid grid-cols-1 gap-2 md:grid-cols-3 lg:grid-cols-3 animated animated-fade-in"
       >
-        <div class="overflow-hidden col-span-2">
+        <div class="col-span-1 md:col-span-2 overflow-hidden">
           <div class="relative w-full">
-            <video
-              ref="videoElement"
-              id="video-element"
-              class="video-js w-full h-60 md:h-140 z-10 py-1 px-2"
-              controls
-              preload="auto"
-              width="800"
-              height="500"
-              :poster="anime.cover"
-              data-setup="{}"
-            />
+            <div v-if="anime.type === 'MUSIC'" class="video-container">
+              <iframe
+                class="w-full h-60 md:h-140"
+                :src="`https://www.youtube.com/embed/${anime.trailer.id}?autoplay=0&controls=1&showinfo=0&rel=0&modestbranding=1&loop=0&fs=0&playsinline=1&mute=0&playlist=${anime.trailer.id}`"
+                frameborder="1"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <div v-else>
+              <video
+                ref="videoElement"
+                id="video-element"
+                class="video-js w-full h-60 md:h-140 z-10 py-1 px-2"
+                controls
+                preload="auto"
+                width="800"
+                height="500"
+                :poster="anime.cover"
+                data-setup="{}"
+              >
+                <template v-if="anime.type === 'MUSIC'">
+                  <source :src="anime.trailer.thumbnail" type="video/mp4" />
+                </template>
+              </video>
+            </div>
           </div>
 
           <div class="pt-5">
@@ -47,7 +60,8 @@
                 @change="updateDisplayedEpisodes"
                 class="btn px-2 py-1"
               >
-                <option v-for="range in episodeRanges" :key="range" :value="range">
+                <option v-if="episodeRanges.length === 0" value="0">0</option>
+                <option v-else v-for="range in episodeRanges" :key="range" :value="range">
                   {{ range }}
                 </option>
               </select>
@@ -57,7 +71,6 @@
               <div class="px-2">Provider:</div>
               <select v-model="provider" @change="updateProvider" class="btn px-2 py-1">
                 <option value="gogoanime">Server 1</option>
-                <option value="zoro">Server 2</option>
               </select>
             </div>
           </div>
@@ -82,7 +95,7 @@
           </div>
         </div>
 
-        <div class="container">
+        <div class="col-span-1 container">
           <div class="flex-col md:flex-row lg:items-start">
             <div class="items-center justify-center mx-auto text-center">
               <img
@@ -139,7 +152,7 @@
         </div>
       </div>
 
-      <div v-if="anime && anime.recommendations" class="max-w-screen-2xl mx-auto p-6">
+      <div v-if="anime && anime.recommendations" class="max-w-screen-2xl mx-auto p-6 mt-6">
         <h2 class="text-2xl font-semibold mb-4">You may also like</h2>
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 gap-2">
           <div
@@ -209,11 +222,15 @@ export default {
         const totalEpisodes = this.anime.episodes.length
         const maxPerPage = this.perPage
         const rangeCount = Math.ceil(totalEpisodes / maxPerPage)
-        return Array.from({ length: rangeCount }, (_, index) => {
-          const start = index * maxPerPage + 1
-          const end = Math.min((index + 1) * maxPerPage, totalEpisodes)
-          return `${start}-${end}`
-        })
+        if (rangeCount > 0) {
+          return Array.from({ length: rangeCount }, (_, index) => {
+            const start = index * maxPerPage + 1
+            const end = Math.min((index + 1) * maxPerPage, totalEpisodes)
+            return `${start}-${end}`
+          })
+        } else {
+          return ['0'] // If there are no episodes, set the range to ['0']
+        }
       }
       return []
     }

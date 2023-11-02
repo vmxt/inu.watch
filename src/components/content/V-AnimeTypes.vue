@@ -103,7 +103,8 @@ export default {
         OVA: 'OVAs',
         ONA: 'ONAs',
         MOVIE: 'Movies',
-        SPECIAL: 'Specials'
+        SPECIAL: 'Specials',
+        MUSIC: 'Music'
       }
 
       return typeMap[type] || type

@@ -63,13 +63,7 @@
               </RouterLink>
             </div>
           </div>
-          <a
-            href="#"
-            class="px-2.5 uppercase py-2 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-dark-200 hover:text-orange-200 dark:hover:bg-gray-200 md:mx-2"
-            >Random</a
-          >
         </div>
-
         <VSearchInput />
       </div>
     </div>
@@ -108,12 +102,19 @@ export default {
         { label: 'TV Short', param: 'TV_SHORT' },
         { label: 'OVAs', param: 'OVA' },
         { label: 'ONAs', param: 'ONA' },
-        { label: 'Specials', param: 'SPECIAL' }
+        { label: 'Specials', param: 'SPECIAL' },
+        { label: 'Music', param: 'MUSIC' }
       ],
       searchResults: []
     }
   },
   methods: {
+    beforeRouteUpdate(to, next) {
+      if (to.path === '/anime/random') {
+        this.$router.go(0)
+      }
+      next()
+    },
     toggleGenreDropdown() {
       this.isOpenGenres = !this.isOpenGenres
       if (this.isOpenGenres && this.isOpenTypes) {
@@ -149,11 +150,13 @@ export default {
     }
   },
   watch: {
-    $route(to) {
-      if (to.path === '/anime') {
-        this.handleSearch()
-      } else if (to.path.startsWith('/type/')) {
-        this.handleTypeChange()
+    watch: {
+      $route(to) {
+        if (to.path === '/anime') {
+          this.handleSearch()
+        } else if (to.path.startsWith('/type/')) {
+          this.handleTypeChange()
+        }
       }
     }
   }

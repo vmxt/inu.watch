@@ -29,6 +29,46 @@ const router = createRouter({
       }
     },
     {
+      path: '/about',
+      name: 'about',
+      component: () => import('@/views/Footer/AboutView.vue'),
+      meta: {
+        title: 'Inu - About'
+      }
+    },
+    {
+      path: '/faq',
+      name: 'faq',
+      component: () => import('@/views/Footer/FaqView.vue'),
+      meta: {
+        title: 'Inu - FAQ'
+      }
+    },
+    {
+      path: '/privacy-policy',
+      name: 'privacy-policy',
+      component: () => import('@/views/Footer/PrivacyPolicyView.vue'),
+      meta: {
+        title: 'Inu - Privacy Policy'
+      }
+    },
+    {
+      path: '/type/:type',
+      name: 'types',
+      component: () => import('@/views/AnimeTypesView.vue'),
+      meta: {
+        title: 'Inu - Types'
+      }
+    },
+    {
+      path: '/genre/:genre',
+      name: 'genre',
+      component: () => import('@/views/AnimeGenreView.vue'),
+      meta: {
+        title: 'Inu - Genre'
+      }
+    },
+    {
       path: '/anime/:id',
       name: 'anime-info',
       component: () => import('@/views/AnimeInfoView.vue'),
@@ -54,22 +94,6 @@ const router = createRouter({
           console.error(error)
           next()
         }
-      }
-    },
-    {
-      path: '/type/:type',
-      name: 'types',
-      component: () => import('@/views/AnimeTypesView.vue'),
-      meta: {
-        title: 'Inu - Types'
-      }
-    },
-    {
-      path: '/genre/:genre',
-      name: 'genre',
-      component: () => import('@/views/AnimeGenreView.vue'),
-      meta: {
-        title: 'Inu - Genre'
       }
     }
   ]
