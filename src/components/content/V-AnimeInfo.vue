@@ -71,6 +71,7 @@
               <div class="px-2">Provider:</div>
               <select v-model="provider" @change="updateProvider" class="btn px-2 py-1">
                 <option value="gogoanime">Server 1</option>
+                <option value="zoro">Server 2</option>
               </select>
             </div>
           </div>
@@ -229,7 +230,7 @@ export default {
             return `${start}-${end}`
           })
         } else {
-          return ['0'] // If there are no episodes, set the range to ['0']
+          return ['0']
         }
       }
       return []
@@ -240,7 +241,10 @@ export default {
       handler: 'updateProvider',
       immediate: true
     },
-    '$route.params.id': 'updateProvider'
+    '$route.params.id': {
+      handler: 'updateProvider',
+      immediate: true
+    }
   },
   methods: {
     parseDescription(description) {
@@ -261,6 +265,7 @@ export default {
         this.anime = response.data
         if (this.episodeRanges.length > 0) {
           this.selectedRange = this.episodeRanges[0]
+          this.selectEpisode(this.displayedEpisodes[0])
         }
       } catch (error) {
         console.error(error)
@@ -288,7 +293,10 @@ export default {
       this.activeEpisode = episode
       try {
         const response = await axios.get(
-          `https://animeden-api.vercel.app/anime/gogoanime/watch/${episode.id.replace(/^\//, '')}`
+          `https://animeden-api.vercel.app/anime/${this.provider}/watch/${episode.id.replace(
+            /^\//,
+            ''
+          )}`
         )
 
         const sources = response.data.sources
