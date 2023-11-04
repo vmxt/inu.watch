@@ -30,7 +30,7 @@
                   <h1 class="text-sm">{{ result.releaseDate }}</h1>
                 </div>
 
-                <RouterLink :to="`/anime/${result.id}`" class="text-sm font-bold z-100">
+                <RouterLink :to="`/anime/${result.id}`" class="text-sm w-10 font-bold z-100">
                   <button class="flex items-center watch_btn">
                     <div i-carbon-play-filled-alt class="text-xl mr-2" />
                     Watch Now
@@ -40,7 +40,7 @@
               <div class="w-full h-full absolute right-0 top-0">
                 <img
                   :src="result.cover"
-                  class="h-[30vh] md:h-full w-full object-cover opacity-40"
+                  class="h-[20vh] md:h-full w-full object-cover opacity-40"
                 />
               </div>
             </div>
@@ -85,7 +85,7 @@ export default {
         const response = await axios.get('https://animeden-api.vercel.app/meta/anilist/trending', {
           params: {
             page: 17,
-            perPage: 15
+            perPage: 20
           }
         })
         results.value = response.data.results

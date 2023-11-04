@@ -2,7 +2,7 @@
   <div class="recent-anime max-w-screen-xl px-5 py-5 mx-auto">
     <template v-if="!isLoading">
       <div class="flex">
-        <h1 class="text-xl py-5">Top Anime</h1>
+        <h1 class="text-xl py-5">Discover Anime</h1>
       </div>
 
       <div
@@ -13,14 +13,24 @@
           :to="'/anime/' + anime.id"
           v-for="anime in animeList"
           :key="anime.id"
-          class="card border border-dark-50 rounded-lg"
+          class="card border border-dark-50 rounded-lg relative overflow-hidden group"
         >
-          <img
-            :src="anime.image"
-            :alt="anime.title"
-            draggable="false"
-            class="w-full h-60 md:h-80 object-cover"
-          />
+          <div class="relative">
+            <img
+              :src="anime.image"
+              :alt="anime.title"
+              draggable="false"
+              class="w-full h-60 md:h-80 object-cover transition-opacity duration-300"
+            />
+            <div
+              class="absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-300"
+            ></div>
+          </div>
+          <div
+            class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 hover:animated hover:animated-fade-in"
+          >
+            <div i-carbon-play-filled class="text-white text-7xl" style="margin-top: -1em" />
+          </div>
           <div class="p-4">
             <h3 class="font-semibold truncate">
               {{ anime.title?.english || anime.title?.userPreferred }}
@@ -33,6 +43,7 @@
           </div>
         </RouterLink>
       </div>
+
       <div class="flex justify-center py-5">
         <button
           @click="previousPage"
@@ -83,8 +94,8 @@ export default {
     }
   },
   async created() {
-    const page = 1
-    const perPage = 50
+    const page = 2
+    const perPage = 48
     const year = new Date().getFullYear()
     const sort = JSON.stringify(['SCORE_DESC'])
     const status = 'FINISHED'
@@ -106,7 +117,7 @@ export default {
   },
   methods: {
     async fetchAnimeList() {
-      const perPage = 50
+      const perPage = 48
       const year = new Date().getFullYear()
       const status = 'FINISHED'
 

@@ -33,26 +33,7 @@
           </div>
         </div>
 
-        <div class="pt-5">
-          <div
-            v-if="showNotification"
-            class="flex items-center p-3 mb-4 text-sm rounded-lg bg-dark-300 border border-dark-50 ml-2"
-          >
-            <div
-              i-streamline-emojis-bell
-              class="animated animated-swing animated-infinite px-3"
-            ></div>
-            If the server doesn't work please try other providers below.
-            <div class="flex-grow"></div>
-            <div
-              i-carbon-close-large
-              @click="closeNotification"
-              class="close-button cursor-pointer hover:text-white"
-            ></div>
-          </div>
-        </div>
-
-        <div class="flex items-center mb-4">
+        <div class="flex items-center mb-4 pt-2">
           <div class="px-2">
             Episodes:
             <select v-model="selectedRange" @change="updateDisplayedEpisodes" class="btn px-2 py-1">
@@ -151,34 +132,44 @@
       </div>
     </div>
 
-    <div v-if="anime && anime.recommendations" class="max-w-screen-2xl mx-auto p-6 mt-6">
-      <h2 class="text-2xl font-semibold mb-4">You may also like</h2>
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 gap-2">
-        <div
-          v-for="recommendation in anime.recommendations.slice(0, 6)"
-          :key="recommendation.id"
-          class="card border border-dark-50 rounded-lg"
-          @click="goToRecommendation(recommendation.id)"
-          style="cursor: pointer"
-        >
+    <h1 class="text-xl">You may also like:</h1>
+    <div
+      class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 gap-2 animated mt-5"
+      :class="{ 'animated-fade-in': !loading }"
+    >
+      <RouterLink
+        :to="'/anime/' + recommendation.id"
+        v-for="recommendation in anime.recommendations.slice(0, 6)"
+        :key="recommendation.id"
+        class="card border border-dark-50 rounded-lg relative overflow-hidden group"
+      >
+        <div class="relative">
           <img
             :src="recommendation.image"
             :alt="recommendation.title.userPreferred"
             draggable="false"
-            class="w-full h-60 md:h-80 object-cover"
+            class="w-full h-60 md:h-80 object-cover transition-opacity duration-300"
           />
-          <div class="p-4">
-            <h3 class="font-semibold truncate">
-              {{ recommendation.title?.userPreferred || recommendation.title?.english }}
-            </h3>
-            <p class="text-gray-500 text-sm">Type: {{ recommendation.type }}</p>
-            <div class="flex items-center">
-              <div i-openmoji-star class="mr-1 py-2"></div>
-              <span class="text-gray-500">{{ (recommendation.rating / 10).toFixed(1) }}</span>
-            </div>
+          <div
+            class="absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-300"
+          ></div>
+        </div>
+        <div
+          class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 hover:animated hover:animated-fade-in"
+        >
+          <div i-carbon-play-filled class="text-white text-7xl" style="margin-top: -1em" />
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold truncate">
+            {{ recommendation.title?.userPreferred || recommendation.title?.english }}
+          </h3>
+          <p class="text-sm">Type: {{ recommendation.type }}</p>
+          <div class="flex items-center">
+            <div i-openmoji-star class="mr-1 py-2" />
+            <span>{{ (recommendation.rating / 10).toFixed(1) }}</span>
           </div>
         </div>
-      </div>
+      </RouterLink>
     </div>
   </div>
 </template>
@@ -240,7 +231,35 @@ export default {
       immediate: true
     }
   },
+  mounted() {
+    document.addEventListener('keydown', this.handleKeyDown)
+  },
+  beforeUnmount() {
+    document.removeEventListener('keydown', this.handleKeyDown)
+  },
   methods: {
+    handleKeyDown(event) {
+      const video = this.$refs.videoElement
+
+      if (event.keyCode === 37 && video) {
+        video.currentTime -= 5
+      } else if (event.keyCode === 39 && video) {
+        video.currentTime += 5
+      } else if (event.keyCode === 70) {
+        this.toggleFullscreen()
+      }
+    },
+    toggleFullscreen() {
+      const video = this.$refs.videoElement
+
+      if (video) {
+        if (document.fullscreenElement) {
+          document.exitFullscreen()
+        } else {
+          video.requestFullscreen()
+        }
+      }
+    },
     parseDescription(description) {
       const parser = new DOMParser()
       const doc = parser.parseFromString(description, 'text/html')

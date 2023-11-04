@@ -73,7 +73,7 @@ const router = createRouter({
       name: 'anime-info',
       component: () => import('@/views/AnimeInfoView.vue'),
       meta: {
-        title: `Inu - Anime`
+        title: 'Inu - Anime'
       },
       beforeEnter: async (to, from, next) => {
         const animeId = to.params.id
@@ -87,6 +87,8 @@ const router = createRouter({
 
           if (title) {
             document.title = `Anime - ${title}`
+          } else {
+            document.title = 'Inu - Anime'
           }
 
           next()
