@@ -43,6 +43,9 @@ devDependencies:
   '@iconify-json/icon-park-solid':
     specifier: ^1.1.10
     version: 1.1.10
+  '@iconify-json/openmoji':
+    specifier: ^1.1.38
+    version: 1.1.38
   '@iconify-json/streamline-emojis':
     specifier: ^1.1.4
     version: 1.1.4
@@ -407,6 +410,12 @@ packages:
 
   /@iconify-json/icon-park-solid@1.1.10:
     resolution: {integrity: sha512-qBb5t+fIBs/AV68qullkCSM/bQyB8F5lf6KJvdtGsN+Nde8ZQU4QAXrcsCKsu3EZLfNEIi9qyb6iXPE/A0HQhA==}
+    dependencies:
+      '@iconify/types': 2.0.0
+    dev: true
+
+  /@iconify-json/openmoji@1.1.38:
+    resolution: {integrity: sha512-0mreKPIaT6H0FLtyW3oogJ6s1CtVedUZLwhY+zhZoB9MMydzlFqz0xUrhDjfT6/eydGfixXc2QSfsxISk7lMTw==}
     dependencies:
       '@iconify/types': 2.0.0
     dev: true

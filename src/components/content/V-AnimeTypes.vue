@@ -27,7 +27,7 @@
             </h3>
             <p class="text-sm">Type: {{ anime.type }}</p>
             <div class="flex items-center">
-              <div i-carbon-star-filled class="mr-1 py-2" />
+              <div i-openmoji-star class="mr-1 py-2" />
               <span>{{ (anime.rating / 10).toFixed(1) }}</span>
             </div>
           </div>
