@@ -1,6 +1,9 @@
 <template>
   <div class="recent-anime max-w-screen-xl px-5 py-5 mx-auto">
-    <template v-if="!isLoading">
+    <template v-if="isLoading">
+      <VSpinner />
+    </template>
+    <template v-else>
       <div class="flex">
         <h1 class="text-xl py-5">Trending Anime</h1>
       </div>
@@ -74,9 +77,6 @@
           Next Page
         </button>
       </div>
-    </template>
-    <template v-else>
-      <VSpinner />
     </template>
   </div>
 </template>

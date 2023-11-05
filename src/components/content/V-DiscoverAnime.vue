@@ -1,10 +1,12 @@
 <template>
   <div class="recent-anime max-w-screen-xl px-5 py-5 mx-auto">
-    <template v-if="!isLoading">
+    <template v-if="isLoading">
+      <VSpinner />
+    </template>
+    <template v-else>
       <div class="flex">
         <h1 class="text-xl py-5">Discover Anime</h1>
       </div>
-
       <div
         class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 gap-2 animated"
         :class="{ 'animated-fade-in': !loading }"
@@ -74,9 +76,6 @@
           Next Page
         </button>
       </div>
-    </template>
-    <template v-else>
-      <VSpinner />
     </template>
   </div>
 </template>

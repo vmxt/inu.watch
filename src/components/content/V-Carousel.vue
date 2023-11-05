@@ -1,6 +1,9 @@
 <template>
   <div class="v-carousel pb-10">
-    <template v-if="!isLoading">
+    <template v-if="isLoading">
+      <VSpinner />
+    </template>
+    <template v-else>
       <div class="animated" :class="{ 'animated-fade-in': !loading }">
         <swiper
           v-if="results.length > 0"
@@ -47,9 +50,6 @@
           </swiper-slide>
         </swiper>
       </div>
-    </template>
-    <template v-else>
-      <VSpinner />
     </template>
   </div>
 </template>
