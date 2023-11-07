@@ -5,18 +5,10 @@
     </template>
     <template v-else>
       <div class="animated" :class="{ 'animated-fade-in': !loading }">
-        <swiper
-          v-if="results.length > 0"
-          :spaceBetween="30"
-          :centeredSlides="true"
-          :autoplay="{
-            delay: 5000,
-            disableOnInteraction: false
-          }"
-          :pagination="{ type: 'progressbar' }"
-          :modules="modules"
-          :loop="true"
-        >
+        <swiper v-if="results.length > 0" :spaceBetween="30" :centeredSlides="true" :autoplay="{
+          delay: 5000,
+          disableOnInteraction: false
+        }" :pagination="{ type: 'progressbar' }" :modules="modules" :loop="true">
           <swiper-slide v-for="result in results" :key="result.id">
             <div class="slide-content relative cursor-grab">
               <div class="w-2/3 p-4 h-auto flex flex-col md:h-[30rem] md:justify-end">
@@ -41,10 +33,7 @@
                 </RouterLink>
               </div>
               <div class="w-full h-full absolute right-0 top-0">
-                <img
-                  :src="result.cover"
-                  class="h-[20vh] md:h-full w-full object-cover opacity-40"
-                />
+                <img :src="result.cover" class="h-[30vh] md:h-full w-full object-cover opacity-40" />
               </div>
             </div>
           </swiper-slide>

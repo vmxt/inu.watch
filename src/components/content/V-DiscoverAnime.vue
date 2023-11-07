@@ -93,10 +93,9 @@ export default {
     }
   },
   async created() {
-    const page = 2
+    const page = 1
     const perPage = 48
     const year = new Date().getFullYear()
-    const sort = JSON.stringify(['SCORE_DESC'])
     const status = 'FINISHED'
 
     try {
@@ -104,7 +103,7 @@ export default {
       const { data } = await axios.get(
         `https://animeden-api.vercel.app/meta/anilist/advanced-search`,
         {
-          params: { page, perPage, year, sort, status }
+          params: { page, perPage, year, status }
         }
       )
       this.animeList = data.results
@@ -129,7 +128,11 @@ export default {
           }
         )
         this.animeList = data.results
-        this.totalPages = data.pageInfo.lastPage
+        if (data.pageInfo && data.pageInfo.lastPage) {
+          this.totalPages = data.pageInfo.lastPage
+        } else {
+          this.totalPages = null
+        }
       } catch (err) {
         console.error(err.message)
       } finally {

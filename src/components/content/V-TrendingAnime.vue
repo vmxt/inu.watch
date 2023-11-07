@@ -10,7 +10,7 @@
 
       <div
         class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 gap-2 animated"
-        :class="{ 'animated-fade-in': !loading }"
+        :class="{ 'animated-fade-in': !isLoading }"
       >
         <RouterLink
           :to="'/anime/' + anime.id"
@@ -103,6 +103,11 @@ export default {
         params: { page, perPage }
       })
       this.animeList = data.results
+      if (data.pageInfo && data.pageInfo.lastPage) {
+        this.totalPages = data.pageInfo.lastPage
+      } else {
+        this.totalPages = null
+      }
     } catch (err) {
       console.error(err.message)
     } finally {

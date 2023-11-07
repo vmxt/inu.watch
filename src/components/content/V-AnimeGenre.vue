@@ -96,8 +96,7 @@ export default {
   },
   methods: {
     async fetchAnimeList() {
-      const perPage = 50
-
+      const perPage = 48
       try {
         this.isLoading = true
         const { data } = await axios.get(

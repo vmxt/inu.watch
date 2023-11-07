@@ -38,7 +38,7 @@
           </div>
 
           <div class="flex items-center mb-4 pt-2">
-            <div class="px-2">
+            <div class="flex items-center">
               Episodes:
               <select
                 v-model="selectedRange"
@@ -51,7 +51,7 @@
                 </option>
               </select>
             </div>
-            <div class="flex items-center ml-4">
+            <div class="flex items-center ml-3">
               Provider:
               <select v-model="provider" @change="updateProvider" class="btn px-2 py-1">
                 <option value="gogoanime">Server 1</option>

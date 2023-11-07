@@ -121,7 +121,7 @@ export default {
       return typeMap[type] || type
     },
     async fetchAnimeList() {
-      const perPage = 50
+      const perPage = 48
       const status = 'FINISHED'
 
       try {
