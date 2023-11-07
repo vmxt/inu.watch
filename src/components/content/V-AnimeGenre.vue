@@ -26,7 +26,7 @@
               class="w-full h-60 md:h-80 object-cover transition-opacity duration-300"
             />
             <div
-              class="absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-300"
+              class="absolute h-[102%] inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-300"
             ></div>
           </div>
           <div
