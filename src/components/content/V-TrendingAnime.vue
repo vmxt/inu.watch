@@ -99,7 +99,7 @@ export default {
 
     try {
       this.isLoading = true
-      const { data } = await axios.get(`https://animeden-api.vercel.app/meta/anilist/trending`, {
+      const { data } = await axios.get(`https://inu-api-roan.vercel.app/meta/anilist/trending`, {
         params: { page, perPage }
       })
       this.animeList = data.results
@@ -120,7 +120,7 @@ export default {
 
       try {
         this.isLoading = true
-        const { data } = await axios.get(`https://animeden-api.vercel.app/meta/anilist/trending`, {
+        const { data } = await axios.get(`https://inu-api-roan.vercel.app/meta/anilist/trending`, {
           params: { page: this.page, perPage }
         })
         this.animeList = data.results

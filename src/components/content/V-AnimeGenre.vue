@@ -100,7 +100,7 @@ export default {
       try {
         this.isLoading = true
         const { data } = await axios.get(
-          `https://animeden-api.vercel.app/meta/anilist/advanced-search`,
+          `https://inu-api-roan.vercel.app/meta/anilist/advanced-search`,
           {
             params: { page: this.page, perPage, genres: `[${JSON.stringify(this.genre)}]` }
           }

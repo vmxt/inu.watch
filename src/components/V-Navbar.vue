@@ -130,7 +130,7 @@ export default {
     async handleSearch() {
       const query = document.getElementById('search-navbar').value
       try {
-        const response = await fetch(`https://animeden-api.vercel.app/meta/anilist/${query}`)
+        const response = await fetch(`https://inu-api-roan.vercel.app/meta/anilist/${query}`)
         const data = await response.json()
         this.searchResults = data.results
       } catch (error) {
@@ -141,7 +141,7 @@ export default {
       const type = this.$route.params.type
 
       try {
-        const response = await fetch(`https://animeden-api.vercel.app/meta/anilist/${type}`)
+        const response = await fetch(`https://inu-api-roan.vercel.app/meta/anilist/${type}`)
         const data = await response.json()
         this.searchResults = data.results
       } catch (error) {

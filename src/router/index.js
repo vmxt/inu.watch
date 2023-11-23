@@ -79,7 +79,7 @@ const router = createRouter({
         const animeId = to.params.id
         try {
           const response = await axios.get(
-            `https://animeden-api.vercel.app/meta/anilist/info/${animeId}`
+            `https://inu-api-roan.vercel.app/meta/anilist/info/${animeId}`
           )
           const animeInfo = response.data
 

@@ -9,25 +9,13 @@
           <div class="col-span-1 md:col-span-2 overflow-hidden">
             <div class="relative w-full">
               <div v-if="anime.type === 'MUSIC'" class="video-container">
-                <iframe
-                  class="w-full h-60 md:h-140"
+                <iframe class="w-full h-60 md:h-140"
                   :src="`https://www.youtube.com/embed/${anime.trailer.id}?autoplay=0&controls=1&showinfo=0&rel=0&modestbranding=1&loop=0&fs=0&playsinline=1&mute=0&playlist=${anime.trailer.id}`"
-                  frameborder="1"
-                  allowfullscreen
-                ></iframe>
+                  frameborder="1" allowfullscreen></iframe>
               </div>
               <div v-else>
-                <video
-                  ref="videoElement"
-                  id="video-element"
-                  class="video-js w-full h-60 md:h-140 z-10 py-1 px-2"
-                  controls
-                  preload="auto"
-                  width="800"
-                  height="500"
-                  :poster="anime.cover"
-                  data-setup="{}"
-                >
+                <video ref="videoElement" id="video-element" class="video-js w-full h-60 md:h-140 z-10 py-1 px-2" controls
+                  preload="auto" width="800" height="500" :poster="anime.cover" data-setup="{}">
                   <template v-if="anime.type === 'MUSIC'">
                     <source :src="anime.trailer.thumbnail" type="video/mp4" />
                   </template>
@@ -38,11 +26,7 @@
             <div class="flex items-center mb-4 pt-2">
               <div class="flex items-center">
                 Episodes:
-                <select
-                  v-model="selectedRange"
-                  @change="updateDisplayedEpisodes"
-                  class="btn px-2 py-1"
-                >
+                <select v-model="selectedRange" @change="updateDisplayedEpisodes" class="btn px-2 py-1">
                   <option v-if="episodeRanges.length === 0" value="0">0</option>
                   <option v-else v-for="range in episodeRanges" :key="range" :value="range">
                     {{ range }}
@@ -59,41 +43,25 @@
             </div>
 
             <div class="grid grid-cols-6 md:grid-cols-9 lg:grid-cols-11 xl:grid-cols-12 gap-1 px-5">
-              <div
-                v-for="(episode, index) in displayedEpisodes"
-                :key="index"
-                :class="[
-                  'text-xs',
-                  'text-center',
-                  'bg-dark-200',
-                  'p-2',
-                  'hover:bg-dark-50',
-                  'cursor-pointer',
-                  { 'active-episode': episode === activeEpisode }
-                ]"
-                @click="selectEpisode(episode)"
-              >
+              <div v-for="(episode, index) in displayedEpisodes" :key="index" :class="[
+                'text-xs',
+                'text-center',
+                'bg-dark-200',
+                'p-2',
+                'hover:bg-dark-50',
+                'cursor-pointer',
+                { 'active-episode': episode === activeEpisode }
+              ]" @click="selectEpisode(episode)">
                 <p>{{ episode.number }}</p>
               </div>
             </div>
 
             <div class="py-10">
-              <div
-                v-if="filteredRelations.length > 0"
-                class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4"
-              >
-                <router-link
-                  :to="'/anime/' + relation.id"
-                  v-for="(relation, index) in filteredRelations"
-                  :key="index"
-                  class="btn relative group"
-                >
-                  <img
-                    :src="relation.image"
-                    draggable="false"
-                    class="w-full h-10 object-cover opacity-10"
-                    alt="Anime Cover"
-                  />
+              <div v-if="filteredRelations.length > 0" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                <router-link :to="'/anime/' + relation.id" v-for="(relation, index) in filteredRelations" :key="index"
+                  class="btn relative group">
+                  <img :src="relation.image" draggable="false" class="w-full h-10 object-cover opacity-10"
+                    alt="Anime Cover" />
                   <div class="absolute inset-0 flex items-center justify-center text-center">
                     <p class="text-sm font-semibold">{{ relation.relationType }}</p>
                   </div>
@@ -105,11 +73,7 @@
           <div class="col-span-1 container">
             <div class="flex-col md:flex-row lg:items-start">
               <div class="items-center justify-center mx-auto text-center">
-                <img
-                  :src="anime.image"
-                  draggable="false"
-                  class="w-75 pt-5 object-cover mb-4 md:mr-4 px-2"
-                />
+                <img :src="anime.image" draggable="false" class="w-75 pt-5 object-cover mb-4 md:mr-4 px-2" />
               </div>
               <div class="w-full">
                 <div class="flex items-center">
@@ -118,25 +82,15 @@
                   </h1>
                 </div>
                 <div class="description-container w-75 mb-4">
-                  <p
-                    class="text-sm"
-                    :class="{ truncate: !showFullDescription }"
-                    v-html="parseDescription(anime.description)"
-                  ></p>
+                  <p class="text-sm" :class="{ truncate: !showFullDescription }"
+                    v-html="parseDescription(anime.description)"></p>
                 </div>
                 <div class="mb-4">
-                  <span
-                    v-if="anime.description.length > 150 && !this.showFullDescription"
-                    class="font-bold cursor-pointer hover:underline"
-                    @click="this.showFullDescription = true"
-                    >View more</span
-                  >
-                  <span
-                    v-if="this.showFullDescription"
-                    class="font-bold cursor-pointer hover:underline"
-                    @click="this.showFullDescription = false"
-                    >View less</span
-                  >
+                  <span v-if="anime.description.length > 150 && !this.showFullDescription"
+                    class="font-bold cursor-pointer hover:underline" @click="this.showFullDescription = true">View
+                    more</span>
+                  <span v-if="this.showFullDescription" class="font-bold cursor-pointer hover:underline"
+                    @click="this.showFullDescription = false">View less</span>
                 </div>
                 <div class="items-center">
                   <div class="flex items-center mb-2">
@@ -168,29 +122,18 @@
           </div>
         </div>
 
-        <div
-          class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 gap-2 animated mt-5"
-        >
-          <RouterLink
-            :to="'/anime/' + recommendation.id"
-            v-for="recommendation in anime.recommendations.slice(0, 6)"
-            :key="recommendation.id"
-            class="card border border-dark-50 rounded-lg relative overflow-hidden group"
-          >
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 gap-2 animated mt-5">
+          <RouterLink :to="'/anime/' + recommendation.id" v-for="recommendation in anime.recommendations.slice(0, 6)"
+            :key="recommendation.id" class="card border border-dark-50 rounded-lg relative overflow-hidden group">
             <div class="relative">
-              <img
-                :src="recommendation.image"
-                :alt="recommendation.title.userPreferred"
-                draggable="false"
-                class="w-full h-60 md:h-80 object-cover transition-opacity duration-300"
-              />
+              <img :src="recommendation.image" :alt="recommendation.title.userPreferred" draggable="false"
+                class="w-full h-60 md:h-80 object-cover transition-opacity duration-300" />
               <div
-                class="absolute h-[102%] inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-300"
-              ></div>
+                class="absolute h-[102%] inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-300">
+              </div>
             </div>
             <div
-              class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 hover:animated hover:animated-fade-in"
-            >
+              class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 hover:animated hover:animated-fade-in">
               <div i-carbon-play-filled class="text-white text-7xl" style="margin-top: -1em"></div>
             </div>
             <div class="p-4">
@@ -277,6 +220,13 @@ export default {
     document.removeEventListener('keydown', this.handleKeyDown)
   },
   methods: {
+    stopVideoPlayer() {
+      const video = document.getElementById('video-element')
+      const player = videojs(video)
+      if (!player.paused()) {
+        player.load()
+      }
+    },
     isPrequelOrSequel(relation) {
       return relation.relationType === 'PREQUEL' || relation.relationType === 'SEQUEL'
     },
@@ -314,7 +264,7 @@ export default {
 
       try {
         const response = await axios.get(
-          `https://animeden-api.vercel.app/meta/anilist/info/${id}?provider=${provider}`
+          `https://inu-api-roan.vercel.app/meta/anilist/info/${id}?provider=${provider}`
         )
 
         this.anime = response.data
@@ -332,10 +282,10 @@ export default {
       try {
         let url
         if (this.provider === 'zoro') {
-          const response = await axios.get(`https://assaload-api.vercel.app/anime/zoro${episodeId}`)
+          const response = await axios.get(`https://inu-api-roan.vercel.app/anime/zoro${episodeId}`)
           url = response.data.sources[0].url
         } else if (this.provider === 'gogoanime') {
-          const response = await axios.get(`https://api.consumet.org/anime/gogoanime${episodeId}`)
+          const response = await axios.get(`https://inu-api-roan.vercel.app/anime/gogoanime${episodeId}`)
           url = response.data.sources[0].url
         }
 
@@ -345,10 +295,12 @@ export default {
       }
     },
     async selectEpisode(episode) {
+      this.stopVideoPlayer()
+
       this.activeEpisode = episode
       try {
         const response = await axios.get(
-          `https://animeden-api.vercel.app/anime/${this.provider}/watch/${episode.id.replace(
+          `https://inu-api-roan.vercel.app/anime/${this.provider}/watch/${episode.id.replace(
             /^\//,
             ''
           )}`
@@ -363,6 +315,8 @@ export default {
           const video = document.getElementById('video-element')
           const player = videojs(video)
           player.src(this.selectedEpisodeUrl)
+
+          player.play()
         }
       } catch (error) {
         console.error(error)
