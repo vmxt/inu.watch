@@ -73,37 +73,37 @@ const router = createRouter({
       name: 'anime-info',
       component: () => import('@/views/AnimeInfoView.vue'),
       meta: {
-        title: 'Inu - Anime'
+        title: ''
       },
       beforeEnter: async (to, from, next) => {
-        const animeId = to.params.id
         try {
           const response = await axios.get(
-            `https://inu-api-roan.vercel.app/meta/anilist/info/${animeId}`
-          )
-          const animeInfo = response.data
-
-          const title = animeInfo.title.english || animeInfo.title.romaji || animeInfo.title.native
-
+            `https://inu-api-roan.vercel.app/meta/anilist/info/${to.params.id}`
+          );
+          const animeInfo = response.data;
+      
+          const title = animeInfo.title.english || animeInfo.title.romaji || animeInfo.title.native;
+      
           if (title) {
-            document.title = `Anime - ${title}`
-          } else {
-            document.title = 'Inu - Anime'
+            to.meta.title = title;
           }
-
-          next()
+      
+          next();
         } catch (error) {
-          console.error(error)
-          next()
+          console.error(error);
+          next();
         }
       }
     }
   ]
 })
 
-router.beforeEach((to, from, next) => {
-  document.title = `${to.meta.title}`
-  next()
-})
+router.afterEach((to) => {
+  if (to.meta && to.meta.title) {
+    document.title = `Anime - ${to.meta.title}`;
+  } else {
+    document.title = 'Inu - Anime';
+  }
+});
 
 export default router

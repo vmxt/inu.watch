@@ -81,7 +81,7 @@
                     {{ anime.title?.english || anime.title?.userPreferred || anime.title?.romaji }}
                   </h1>
                 </div>
-                <div class="description-container w-75 mb-4">
+                <div class="description-container w-100 mb-4">
                   <p class="text-sm" :class="{ truncate: !showFullDescription }"
                     v-html="parseDescription(anime.description)"></p>
                 </div>
@@ -98,13 +98,23 @@
                     <span>{{ (anime.rating / 10).toFixed(1) }}</span>
                   </div>
                   <p class="text-sm mr-2">Studio: {{ anime.studios[0] }}</p>
-                  <p class="text-sm mr-2">Type: {{ anime.type }}</p>
+                  <div>
+                    <p class="text-sm mr-2">Type:
+                      <RouterLink class="hover:underline" :to="'/type/' + anime.type">{{ anime.type }}</RouterLink>
+                    </p>
+                  </div>
                   <p class="text-sm mr-2">Status: {{ anime.status }}</p>
                   <p class="text-sm mr-2">
                     Sub/Dub: <span class="uppercase">{{ anime.subOrDub }}</span>
                   </p>
                   <p class="text-sm mr-2">Country: {{ anime.countryOfOrigin }}</p>
-                  <p class="text-sm mr-2">Genre: {{ anime.genres.join(', ') }}</p>
+                  <div class="text-sm mr-2 flex items-center">
+                    <span>Genres:</span>
+                    <p v-for="(genre, index) in anime.genres" :key="index">
+                      <RouterLink :to="`/genre/${genre}`" class="ml-1 hover:underline">{{ genre }}</RouterLink>
+                      <span v-if="index !== anime.genres.length - 1" class="mr-1">,</span>
+                    </p>
+                  </div>
                   <p class="text-sm mr-2">Premiered: {{ anime.season }} {{ anime.releaseDate }}</p>
                   <p class="text-sm mr-2">
                     Date Aired: {{ anime.startDate.year }}-{{ anime.startDate.month }}-{{
