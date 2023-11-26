@@ -10,23 +10,35 @@
       class="block w-full p-2 pl-10 text-sm border-dark-100 border bg-dark"
       placeholder="Search Anime..."
       v-model="searchStore.searchQuery"
-      @input="handleSearch"
+      @input="handleSearchDebounced"
       @keyup.esc="closeDropdown"
     />
 
+    <div v-if="searchStore.loading" class="absolute inset-0 flex items-center justify-center bg-dark-500">
+      <div i-svg-spinners-3-dots-bounce />
+    </div>
+
     <div
-      v-show="searchStore.searchResults.length > 0 && searchStore.searchQuery"
-      class="absolute mt-2 w-full bg-dark border-dark-300 rounded-lg shadow-lg p-2"
+      v-if="!searchStore.loading && searchStore.searchResults.length > 0 && searchStore.searchQuery"
+      class="absolute mt-2 w-full bg-dark-500 border border-dark-300 rounded-lg shadow-lg p-2"
     >
       <ul class="list-none p-0 m-0">
         <RouterLink
-          v-for="result in searchStore.searchResults"
+          v-for="result in searchStore.searchResults.slice(0, 5)"
           :to="'/anime/' + result.id"
           :key="result.id"
-          class="block py-2 px-3 hover:bg-dark-200 hover:text-orange-200 cursor-pointer truncate"
+          class="flex items-center py-2 px-3 hover:bg-dark-200 hover:text-orange-200 cursor-pointer truncate"
           @click="handleResultClick"
         >
-          {{ result.title?.english || result.title?.userPreferred }}
+          <div class="flex-shrink-0 w-15 h-20 mr-3">
+            <img
+              v-if="result.image"
+              :src="result.image"
+              alt="Anime Poster"
+              class="w-full h-full object-cover rounded"
+            />
+          </div>
+          <span class="flex-grow truncate">{{ result.title?.english || result.title?.userPreferred }}</span>
         </RouterLink>
       </ul>
     </div>
@@ -40,9 +52,40 @@ export default {
   setup() {
     const searchStore = useSearchStore()
 
+    let timeoutId = null
+
     const handleSearch = async () => {
-      const query = searchStore.searchQuery
-      await searchStore.handleSearch(query)
+      searchStore.loading = true;
+
+      if (searchStore.searchQuery.trim() === '') {
+        searchStore.closeDropdown()
+        searchStore.loading = false;
+        return
+      }
+
+      try {
+        const query = searchStore.searchQuery
+        const response = await fetch(`https://inu-api-roan.vercel.app/meta/anilist/${query}`)
+        const data = await response.json()
+        searchStore.searchResults = data.results
+      } catch (error) {
+        console.error('Error fetching data:', error)
+      } finally {
+        searchStore.loading = false;
+      }
+    }
+
+    const handleSearchDebounced = () => {
+      clearTimeout(timeoutId)
+
+      timeoutId = setTimeout(() => {
+        handleSearch()
+      }, 500)
+
+      if (searchStore.searchQuery.trim() === '') {
+        clearTimeout(timeoutId)
+        searchStore.closeDropdown()
+      }
     }
 
     const closeDropdown = () => {
@@ -55,7 +98,7 @@ export default {
 
     return {
       searchStore,
-      handleSearch,
+      handleSearchDebounced,
       closeDropdown,
       handleResultClick
     }

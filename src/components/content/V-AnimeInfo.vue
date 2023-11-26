@@ -23,9 +23,9 @@
               </div>
             </div>
 
-            <div class="flex items-center mb-4 pt-2">
+            <div class="flex items-center py-3 pt-2">
               <div class="flex items-center">
-                Episodes:
+                <span class="mr-1">Episodes</span>
                 <select v-model="selectedRange" @change="updateDisplayedEpisodes" class="btn px-2 py-1">
                   <option v-if="episodeRanges.length === 0" value="0">0</option>
                   <option v-else v-for="range in episodeRanges" :key="range" :value="range">
@@ -33,8 +33,8 @@
                   </option>
                 </select>
               </div>
-              <div class="flex items-center ml-3">
-                Server:
+              <div class="flex items-center mr-3">
+                <span class="mr-1">Server</span>
                 <select v-model="provider" @change="updateProvider" class="btn px-2 py-1">
                   <option value="gogoanime">Server 1</option>
                   <option value="zoro">Server 2</option>
@@ -247,19 +247,6 @@ export default {
         video.currentTime -= 5
       } else if (event.keyCode === 39 && video) {
         video.currentTime += 5
-      } else if (event.keyCode === 70) {
-        this.toggleFullscreen()
-      }
-    },
-    toggleFullscreen() {
-      const video = this.$refs.videoElement
-
-      if (video) {
-        if (document.fullscreenElement) {
-          document.exitFullscreen()
-        } else {
-          video.requestFullscreen()
-        }
       }
     },
     parseDescription(description) {

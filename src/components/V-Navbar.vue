@@ -31,7 +31,7 @@
 
             <div
               v-if="isOpenGenres"
-              class="absolute w-full md:w-100 z-10 mt-2 bg-dark border-dark-300 rounded-lg shadow-lg p-2 grid grid-cols-3 gap-2"
+              class="absolute w-full md:w-100 z-10 mt-2 bg-dark-600 border border-dark-300 rounded-lg shadow-lg p-2 grid grid-cols-3 gap-2"
             >
               <RouterLink
                 v-for="genre in genres"
@@ -51,7 +51,7 @@
             </button>
             <div
               v-if="isOpenTypes"
-              class="absolute w-full md:w-30 z-10 mt-2 bg-dark border-dark-300 rounded-lg shadow-lg p-2"
+              class="absolute w-full md:w-30 z-10 mt-2 bg-dark-600 border border-dark-300 rounded-lg shadow-lg p-2"
             >
               <RouterLink
                 v-for="type in types"
