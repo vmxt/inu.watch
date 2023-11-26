@@ -64,7 +64,7 @@
             </div>
           </div>
         </div>
-        <VSearchInput />
+        <VSearchInput class="w-full md:w-100" />
       </div>
     </div>
   </nav>
