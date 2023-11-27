@@ -14,7 +14,10 @@
       @keyup.esc="closeDropdown"
     />
 
-    <div v-if="searchStore.loading" class="absolute inset-0 flex items-center justify-center bg-dark-500">
+    <div
+      v-if="searchStore.loading"
+      class="absolute inset-0 flex items-center justify-center bg-dark-500"
+    >
       <div i-svg-spinners-3-dots-bounce />
     </div>
 
@@ -38,7 +41,9 @@
               class="w-full h-full object-cover rounded"
             />
           </div>
-          <span class="flex-grow truncate">{{ result.title?.english || result.title?.userPreferred }}</span>
+          <span class="flex-grow truncate">{{
+            result.title?.english || result.title?.userPreferred
+          }}</span>
         </RouterLink>
       </ul>
     </div>
@@ -55,11 +60,11 @@ export default {
     let timeoutId = null
 
     const handleSearch = async () => {
-      searchStore.loading = true;
+      searchStore.loading = true
 
       if (searchStore.searchQuery.trim() === '') {
         searchStore.closeDropdown()
-        searchStore.loading = false;
+        searchStore.loading = false
         return
       }
 
@@ -71,7 +76,7 @@ export default {
       } catch (error) {
         console.error('Error fetching data:', error)
       } finally {
-        searchStore.loading = false;
+        searchStore.loading = false
       }
     }
 

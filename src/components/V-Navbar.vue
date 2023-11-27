@@ -22,6 +22,18 @@
         class="absolute inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 ease-in-out bg-dark-800 dark:bg-gray-800 md:mt-0 md:p-0 md:top-0 md:relative md:opacity-100 md:translate-x-0 md:flex md:items-center md:justify-between"
       >
         <div class="flex flex-col px-2 -mx-4 md:flex-row md:mx-10 md:py-0">
+          <div class="flex flex-col px-2 -mx-2 md:flex-row md:py-0">
+            <div class="relative">
+              <RouterLink to="/recent">
+                <button
+                  class="px-2.5 uppercase py-2 uppercase transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-dark-200 hover:text-orange-200 dark:hover:bg-gray-200 md:mx-2"
+                >
+                  Recent
+                </button>
+              </RouterLink>
+            </div>
+          </div>
+
           <div class="relative" @click.stop="toggleGenreDropdown">
             <button
               class="px-2.5 uppercase py-2 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-dark-200 hover:text-orange-200 dark:hover:bg-gray-200 md:mx-2"

@@ -1,11 +1,11 @@
 <template>
-  <div class="discover-anime max-w-screen-xl px-5 py-5 mx-auto">
+  <div class="recent-anime max-w-screen-xl px-5 py-5 mx-auto">
     <template v-if="isLoading">
       <VSpinner />
     </template>
     <template v-else>
       <div class="flex">
-        <h1 class="text-xl py-5">Discover Anime</h1>
+        <h1 class="text-xl py-5">Recent Anime</h1>
       </div>
       <div
         class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 gap-2 animated"
@@ -35,13 +35,10 @@
           </div>
           <div class="p-4">
             <h3 class="font-semibold truncate">
-              {{ anime.title?.english || anime.title?.userPreferred }}
+              {{ anime.title?.english || anime.title?.userPreferred || anime.title?.romaji }}
             </h3>
             <p class="text-sm">Type: {{ anime.type }}</p>
-            <div class="flex items-center">
-              <div i-openmoji-star class="mr-1 py-2" />
-              <span>{{ (anime.rating / 10).toFixed(1) }}</span>
-            </div>
+            <p class="text-sm text-orange-300 underline">{{ anime.episodeTitle }}</p>
           </div>
         </RouterLink>
       </div>
@@ -101,7 +98,7 @@ export default {
     try {
       this.isLoading = true
       const { data } = await axios.get(
-        `https://inu-api-roan.vercel.app/meta/anilist/advanced-search`,
+        `https://inu-api-roan.vercel.app/meta/anilist/recent-episodes`,
         {
           params: { page, perPage, year, status }
         }
@@ -116,15 +113,13 @@ export default {
   methods: {
     async fetchAnimeList() {
       const perPage = 48
-      const year = new Date().getFullYear()
-      const status = 'FINISHED'
 
       try {
         this.isLoading = true
         const { data } = await axios.get(
-          `https://inu-api-roan.vercel.app/meta/anilist/advanced-search`,
+          `https://inu-api-roan.vercel.app/meta/anilist/recent-episodes`,
           {
-            params: { page: this.page, perPage, year, status }
+            params: { page: this.page, perPage }
           }
         )
         this.animeList = data.results
