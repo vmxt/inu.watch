@@ -4,7 +4,7 @@
       <VSpinner />
     </template>
     <template v-else>
-      <div class="animated" :class="{ 'animated-fade-in': !loading }">
+      <div class="animated" :class="{ 'animated-fade-in': !isLoading }">
         <swiper
           v-if="results.length > 0"
           :spaceBetween="30"

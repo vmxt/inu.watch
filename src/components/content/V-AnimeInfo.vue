@@ -3,7 +3,7 @@
     <template v-if="isLoading">
       <VSpinner />
     </template>
-    <template v-else>
+    <template v-else-if="anime">
       <div v-if="anime" class="max-w-screen-2xl mx-auto p-6">
         <nav class="flex py-5" aria-label="Breadcrumb">
           <ol class="inline-flex items-center">
@@ -266,6 +266,9 @@
           </RouterLink>
         </div>
       </div>
+    </template>
+    <template v-else>
+      <V-InternalServer />
     </template>
   </div>
 </template>
