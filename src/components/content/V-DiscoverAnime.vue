@@ -101,7 +101,7 @@ export default {
     try {
       this.isLoading = true
       const { data } = await axios.get(
-        `https://inu-api-roan.vercel.app/meta/anilist/advanced-search`,
+        `https://march-api1.vercel.app/meta/anilist/advanced-search`,
         {
           params: { page, perPage, year, status }
         }
@@ -122,7 +122,7 @@ export default {
       try {
         this.isLoading = true
         const { data } = await axios.get(
-          `https://inu-api-roan.vercel.app/meta/anilist/advanced-search`,
+          `https://march-api1.vercel.app/meta/anilist/advanced-search`,
           {
             params: { page: this.page, perPage, year, status }
           }

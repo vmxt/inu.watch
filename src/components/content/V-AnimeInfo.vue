@@ -388,7 +388,7 @@ export default {
       const provider = this.provider
       try {
         const response = await axios.get(
-          `https://inu-api-roan.vercel.app/meta/anilist/info/${id}?provider=${provider}`
+          `https://march-api1.vercel.app/meta/anilist/info/${id}?provider=${provider}`
         )
         this.anime = response.data
         if (this.episodeRanges.length > 0) {
@@ -405,11 +405,11 @@ export default {
       try {
         let url
         if (this.provider === 'zoro') {
-          const response = await axios.get(`https://inu-api-roan.vercel.app/anime/zoro${episodeId}`)
+          const response = await axios.get(`https://march-api1.vercel.app/anime/zoro${episodeId}`)
           url = response.data.sources[0].url
         } else if (this.provider === 'gogoanime') {
           const response = await axios.get(
-            `https://inu-api-roan.vercel.app/anime/gogoanime${episodeId}`
+            `https://march-api1.vercel.app/anime/gogoanime${episodeId}`
           )
           url = response.data.sources[0].url
         }
@@ -423,7 +423,7 @@ export default {
       this.activeEpisode = episode
       try {
         const response = await axios.get(
-          `https://inu-api-roan.vercel.app/anime/${this.provider}/watch/${episode.id.replace(
+          `https://march-api1.vercel.app/anime/${this.provider}/watch/${episode.id.replace(
             /^\//,
             ''
           )}`

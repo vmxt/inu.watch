@@ -34,6 +34,18 @@
             </div>
           </div>
 
+          <div class="flex flex-col px-2 -mx-2 md:flex-row md:py-0">
+            <div class="relative">
+              <RouterLink to="/recent">
+                <button
+                  class="px-2.5 uppercase py-2 uppercase transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-dark-200 hover:text-orange-200 dark:hover:bg-gray-200 md:mx-2"
+                >
+                  Season
+                </button>
+              </RouterLink>
+            </div>
+          </div>
+
           <div class="relative" @click.stop="toggleGenreDropdown">
             <button
               class="px-2.5 uppercase py-2 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-dark-200 hover:text-orange-200 dark:hover:bg-gray-200 md:mx-2"
@@ -142,7 +154,7 @@ export default {
     async handleSearch() {
       const query = document.getElementById('search-navbar').value
       try {
-        const response = await fetch(`https://inu-api-roan.vercel.app/meta/anilist/${query}`)
+        const response = await fetch(`https://march-api1.vercel.app/meta/anilist/${query}`)
         const data = await response.json()
         this.searchResults = data.results
       } catch (error) {
@@ -153,7 +165,7 @@ export default {
       const type = this.$route.params.type
 
       try {
-        const response = await fetch(`https://inu-api-roan.vercel.app/meta/anilist/${type}`)
+        const response = await fetch(`https://march-api1.vercel.app/meta/anilist/${type}`)
         const data = await response.json()
         this.searchResults = data.results
       } catch (error) {

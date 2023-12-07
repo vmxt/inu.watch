@@ -19,7 +19,8 @@
     "unplugin-vue-components": "^0.25.2",
     "video.js": "^8.6.1",
     "vue": "^3.3.8",
-    "vue-router": "^4.2.5"
+    "vue-router": "^4.2.5",
+    "vue3-popper": "^1.5.0"
   },
   "devDependencies": {
     "@iconify-json/carbon": "^1.1.21",

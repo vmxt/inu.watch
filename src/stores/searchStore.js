@@ -10,7 +10,7 @@ export const useSearchStore = defineStore({
   actions: {
     async handleSearch(query) {
       try {
-        const response = await fetch(`https://inu-api-roan.vercel.app/meta/anilist/${query}`)
+        const response = await fetch(`https://march-api1.vercel.app/meta/anilist/${query}`)
         const data = await response.json()
         this.searchResults = data.results
       } catch (error) {

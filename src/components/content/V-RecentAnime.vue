@@ -98,7 +98,7 @@ export default {
     try {
       this.isLoading = true
       const { data } = await axios.get(
-        `https://inu-api-roan.vercel.app/meta/anilist/recent-episodes`,
+        `https://march-api1.vercel.app/meta/anilist/recent-episodes`,
         {
           params: { page, perPage, year, status }
         }
@@ -117,7 +117,7 @@ export default {
       try {
         this.isLoading = true
         const { data } = await axios.get(
-          `https://inu-api-roan.vercel.app/meta/anilist/recent-episodes`,
+          `https://march-api1.vercel.app/meta/anilist/recent-episodes`,
           {
             params: { page: this.page, perPage }
           }
