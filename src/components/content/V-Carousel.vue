@@ -59,6 +59,8 @@ import { ref } from 'vue'
 import axios from 'axios'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 
+import.meta.env.VITE_API_URL
+
 import 'swiper/css'
 import 'swiper/css/pagination'
 

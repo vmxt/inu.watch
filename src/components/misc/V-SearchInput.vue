@@ -70,7 +70,7 @@ export default {
 
       try {
         const query = searchStore.searchQuery
-        const response = await fetch(`https://march-api1.vercel.app/meta/anilist/${query}`)
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/meta/anilist/${query}`)
         const data = await response.json()
         searchStore.searchResults = data.results
       } catch (error) {

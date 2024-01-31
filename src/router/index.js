@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import axios from 'axios'
 
+import.meta.env.VITE_API_URL
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -85,9 +87,7 @@ const router = createRouter({
       },
       beforeEnter: async (to, from, next) => {
         try {
-          const response = await axios.get(
-            `https://march-api1.vercel.app/meta/anilist/info/${to.params.id}`
-          )
+          const response = await axios.get(`${import.meta.env.VITE_API_URL}/meta/anilist/info/${to.params.id}`)
           const animeInfo = response.data
 
           const title =
