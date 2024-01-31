@@ -278,6 +278,8 @@ import axios from 'axios'
 import videojs from 'video.js'
 import 'video.js/dist/video-js.css'
 
+import.meta.env.VITE_API_URL
+
 export default {
   data() {
     return {

@@ -84,6 +84,8 @@
 <script>
 import axios from 'axios'
 
+import.meta.env.VITE_API_URL
+
 function getFormatParam(type) {
   const formatMap = {
     Movies: 'MOVIE',
