@@ -42,37 +42,6 @@
           </div>
         </RouterLink>
       </div>
-
-      <div class="flex justify-center py-5">
-        <button
-          @click="previousPage"
-          :disabled="page === 1"
-          :class="{
-            btn: true,
-            border: true,
-            'border-dark-300': true,
-            'bg-dark-50 hover:bg-dark-50': page === 1,
-            'mr-2': true,
-            'disabled:opacity-50': page === 1
-          }"
-        >
-          Previous Page
-        </button>
-        <button
-          @click="nextPage"
-          :disabled="page === totalPages"
-          :class="{
-            btn: true,
-            border: true,
-            'border-dark-300': true,
-            'bg-dark-50 hover:bg-dark-50': page === totalPages,
-            'ml-2': true,
-            'disabled:opacity-50': page === totalPages
-          }"
-        >
-          Next Page
-        </button>
-      </div>
     </template>
   </div>
 </template>
@@ -80,7 +49,7 @@
 <script>
 import axios from 'axios'
 
-import.meta.env.VITE_API_URL
+const apiUrl = import.meta.env.VITE_API_URL
 
 export default {
   data() {
@@ -92,19 +61,9 @@ export default {
     }
   },
   async created() {
-    const page = 1
-    const perPage = 48
-    const year = new Date().getFullYear()
-    const status = 'FINISHED'
-
     try {
       this.isLoading = true
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_API_URL}/meta/anilist/recent-episodes`,
-        {
-          params: { page, perPage, year, status }
-        }
-      )
+      const { data } = await axios.get(`${apiUrl}/meta/anilist/recent-episodes`)
       this.animeList = data.results
     } catch (err) {
       console.error(err.message)
@@ -114,16 +73,9 @@ export default {
   },
   methods: {
     async fetchAnimeList() {
-      const perPage = 48
-
       try {
         this.isLoading = true
-        const { data } = await axios.get(
-          `${import.meta.env.VITE_API_URL}/meta/anilist/recent-episodes`,
-          {
-            params: { page: this.page, perPage }
-          }
-        )
+        const { data } = await axios.get(`${apiUrl}/meta/anilist/recent-episodes`)
         this.animeList = data.results
         if (data.pageInfo && data.pageInfo.lastPage) {
           this.totalPages = data.pageInfo.lastPage
@@ -134,16 +86,6 @@ export default {
         console.error(err.message)
       } finally {
         this.isLoading = false
-      }
-    },
-    nextPage() {
-      this.page++
-      this.fetchAnimeList()
-    },
-    previousPage() {
-      if (this.page > 1) {
-        this.page--
-        this.fetchAnimeList()
       }
     }
   }

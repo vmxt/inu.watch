@@ -25,7 +25,7 @@
             <li aria-current="page">
               <div class="flex items-center">
                 <div i-carbon-chevron-right class="text-sm mx-1" />
-                <p class="text-xs">{{ anime.title?.english || anime.title?.userPreferred }}</p>
+                <p class="text-xs">{{ anime.title?.english || anime.title?.userPreferred || anime.title?.romaji }}</p>
               </div>
             </li>
           </ol>
