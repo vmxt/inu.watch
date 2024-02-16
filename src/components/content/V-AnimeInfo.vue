@@ -61,7 +61,7 @@
               </div>
             </div>
 
-            <div class="flex items-center py-3 pt-2">
+            <div v-if="anime && anime.type !== 'MUSIC'" class="flex items-center py-3 pt-2">
               <div class="flex items-center">
                 <span class="mr-1 text-sm">Episodes</span>
                 <select
