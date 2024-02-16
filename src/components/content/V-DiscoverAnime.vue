@@ -98,7 +98,7 @@ export default {
     const page = 1
     const perPage = 48
     const year = new Date().getFullYear()
-    const status = 'FINISHED'
+    const status = 'RELEASING'
 
     try {
       this.isLoading = true

@@ -43,7 +43,7 @@
               <div class="w-full h-full absolute right-0 top-0">
                 <img
                   :src="result.cover"
-                  class="h-[30vh] md:h-full w-full object-cover opacity-40"
+                  class="h-[30vh] md:h-full w-full object-cover opacity-40 aspect-auto"
                 />
               </div>
             </div>
