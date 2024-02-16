@@ -93,7 +93,7 @@
               </div>
             </div>
 
-            <div class="grid grid-cols-6 md:grid-cols-9 lg:grid-cols-11 xl:grid-cols-12 gap-1 px-5">
+            <div v-if="anime && anime.type !== 'MUSIC'" class="grid grid-cols-6 md:grid-cols-9 lg:grid-cols-11 xl:grid-cols-12 gap-1 px-5">
               <div
                 v-for="(episode, index) in displayedEpisodes"
                 :key="index"
