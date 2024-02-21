@@ -84,7 +84,7 @@ export default {
     async function fetchResults() {
       try {
         loading.value = true
-        const response = await axios.get('https://march-api1.vercel.app/meta/anilist/trending', {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/meta/anilist/trending`, {
           params: {
             page: 17,
             perPage: 20
